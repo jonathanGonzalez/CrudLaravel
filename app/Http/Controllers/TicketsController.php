@@ -31,7 +31,8 @@ class TicketsController extends Controller
         // $query4 = Ticket::where('created_at', '2020-06-19 01:02:45')->get();
  
         // a través de compact se envían datos a la vista
-        return view('tickets', compact('allTickets'));
+        return view('tickets.index', compact('allTickets'));
+        
     }
 
     /**
@@ -62,7 +63,7 @@ class TicketsController extends Controller
 
         $allTickets = Ticket::all();
         
-        return view('tickets', compact('allTickets'));
+        return view('tickets.index', compact('allTickets'));
     }
 
     /**
@@ -84,7 +85,8 @@ class TicketsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $objectToUpdate = Ticket::find($id);
+        return view('tickets.edit', compact('objectToUpdate'));
     }
 
     /**
@@ -94,13 +96,19 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
          //update/actualizar
-         $objectToUpdate = Ticket::find(12);
-         $objectToUpdate->descripcion = "tarea 12 actualizada desde laravel";
-         $objectToUpdate->save();
-         dd($objectToUpdate);
+        //dd($request);
+        $objectToUpdate = Ticket::find($request->id_ticket_hidden);
+        $objectToUpdate->descripcion = $request->description_text;
+        $objectToUpdate->responsable = $request->responsable_text;
+        $objectToUpdate->fecha_solicitud = $request->fecha_date;
+        $objectToUpdate->save();
+        
+        $allTickets = Ticket::all();
+        return view('tickets.index', compact('allTickets'));
+
     }
 
     /**
@@ -119,6 +127,6 @@ class TicketsController extends Controller
         //$objectToDelete2 = Ticket::where('created_at','<','2020-06-19 01:05:00')->delete();
         $allTickets = Ticket::all();
         
-        return view('tickets', compact('allTickets'));
+        return view('tickets.index', compact('allTickets'));
     }
 }

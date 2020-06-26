@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('tickets', 'TicketsController');
 Route::get('borrartickets/{id}', 'TicketsController@destroy');
+Route::get('actualizartickets/{id}', 'TicketsController@edit');
+Route::post('actualizarticketsbd', 'TicketsController@update');
+
 
 
 

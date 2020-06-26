@@ -68,68 +68,32 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                Vista Tickets                
+                Vista Editar Tickets                
                 </div>
                 <div>
-                    <form method="POST" action="/tickets">
+                    <form method="POST" action="/actualizarticketsbd">
                     @csrf
                         <div>
                             <label for="">Descripción ticket/tarea</label>
-                            <input type="text" name="description_text" id="">
+                            <input type="text" name="description_text" value="{{ $objectToUpdate->descripcion }}">
+                            <input type="hidden" name="id_ticket_hidden" value="{{ $objectToUpdate->id }}">
                         </div>
                         <div>
                             <label for="">Responsable</label>
-                            <input type="text" name="responsable_text" id="">
+                            <input type="text" name="responsable_text" value="{{ $objectToUpdate->responsable }}">
                         </div>
                         <div>
                             <label for="">Fecha</label>
-                            <input type="date" name="fecha_date" id="">
+                            <input type="date" name="fecha_date" value="{{ $objectToUpdate->fecha_solicitud }}">
                         </div>
                         <div>
-                            <input type="submit" value="Guardar" id="">
+                            <input type="submit" value="Editar" id="">
                         </div>                        
                     </form>
                 </div>
 
                 <div class="links">
-                    <table border="1">
-                        <thead>
-                            <th>
-                                id
-                            </th>
-                            <th>
-                                Descripción ticket/tarea
-                            </th>
-                            <th>
-                                Responsable
-                            </th>
-                            <th>
-                                Fecha solicitud
-                            </th>
-                            <th>
-                                created_at
-                            </th>
-                            <th>
-                                updated_at
-                            </th>
-                            <th>
-                            
-                            </th>
-                        </thead>
-                        @foreach($allTickets as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->descripcion }}</td>
-                            <td>{{ $item->responsable }}</td>
-                            <td>{{ $item->fecha_solicitud }}</td>
-                            <td>{{ $item->created_at }}</td>
-                            <td>{{ $item->updated_at }}</td>
-                            <td>
-                                <a href="/borrartickets/{{ $item->id }}">borrar</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
+                    
                 </div>
             </div>
         </div>
