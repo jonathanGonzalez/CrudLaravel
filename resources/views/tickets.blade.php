@@ -70,6 +70,26 @@
                 <div class="title m-b-md">
                 Vista Tickets                
                 </div>
+                <div>
+                    <form method="POST" action="/tickets">
+                    @csrf
+                        <div>
+                            <label for="">Descripción ticket/tarea</label>
+                            <input type="text" name="description_text" id="">
+                        </div>
+                        <div>
+                            <label for="">Responsable</label>
+                            <input type="text" name="responsable_text" id="">
+                        </div>
+                        <div>
+                            <label for="">Fecha</label>
+                            <input type="date" name="fecha_date" id="">
+                        </div>
+                        <div>
+                            <input type="submit" value="Guardar" id="">
+                        </div>                        
+                    </form>
+                </div>
 
                 <div class="links">
                     <table border="1">
@@ -92,8 +112,11 @@
                             <th>
                                 updated_at
                             </th>
+                            <th>
+                            
+                            </th>
                         </thead>
-                        @foreach($tickets as $item)
+                        @foreach($allTickets as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->descripcion }}</td>
@@ -101,6 +124,9 @@
                             <td>{{ $item->fecha_solicitud }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>{{ $item->updated_at }}</td>
+                            <td>
+                                <a href="/borrartickets/{{ $item->id }}">borrar</a>
+                            </td>
                         </tr>
                         @endforeach
                     </table>

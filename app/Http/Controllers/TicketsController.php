@@ -24,14 +24,14 @@ class TicketsController extends Controller
 
         //Read/Consultar
         //consultar todos los elementos
-        $tickets = Ticket::all();
+        $allTickets = Ticket::all(); 
         // //la siguiente línea es equivalente a select * from tickets where id = '3'
         // $query2 = Ticket::find(7);
         // $query3 = Ticket::where('responsable', 'Pedro')->get();
         // $query4 = Ticket::where('created_at', '2020-06-19 01:02:45')->get();
  
         // a través de compact se envían datos a la vista
-        return view('tickets', compact('tickets'));
+        return view('tickets', compact('allTickets'));
     }
 
     /**
@@ -52,15 +52,17 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->description_text);
          //Create/crear
         $ticketObject = new Ticket;
-        $ticketObject->descripcion = "tarea xyz";
-        $ticketObject->responsable = "Jhonathan G";
-        $ticketObject->fecha_solicitud = "2020/06/18";
+        $ticketObject->descripcion = $request->description_text;
+        $ticketObject->responsable = $request->responsable_text;
+        $ticketObject->fecha_solicitud = $request->fecha_date;
         $ticketObject->save();
 
-        $tickets = Ticket::all();
-        return view('tickets', compact('tickets'));
+        $allTickets = Ticket::all();
+        
+        return view('tickets', compact('allTickets'));
     }
 
     /**
@@ -107,12 +109,16 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_ticket)
     {
+        //dd($id_ticket);
         //Delete/eliminar
         //borrar por id, puedo pasar uno o varios ids
-        $objectToDelete = Ticket::destroy(6,7,8,9);
-        $objectToDelete2 = Ticket::where('created_at','<','2020-06-19 01:05:00')->delete();
-        return view('/');
+        $objectToDelete = Ticket::destroy($id_ticket);
+        //$objectToDelete = Ticket::destroy(6,7,8,9);
+        //$objectToDelete2 = Ticket::where('created_at','<','2020-06-19 01:05:00')->delete();
+        $allTickets = Ticket::all();
+        
+        return view('tickets', compact('allTickets'));
     }
 }

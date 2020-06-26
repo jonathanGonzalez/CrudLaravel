@@ -13,12 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-Route::get('/', 'TicketsController@index');
-Route::get('/update', 'TicketsController@update');
-Route::get('/store', 'TicketsController@store');
-Route::get('/delete', 'TicketsController@destroy');
+
+Route::resource('tickets', 'TicketsController');
+Route::get('borrartickets/{id}', 'TicketsController@destroy');
+
+
 
